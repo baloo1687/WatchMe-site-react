@@ -9,7 +9,8 @@ class App extends React.Component {
     movies: [],
     series: [],
     searchResult: [],
-    isLoading: false
+    isLoading: false,
+    error: ''
   }
 
   fetchApi = (url, type) => {
@@ -17,8 +18,14 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
           this.setState({isLoading: false})
-          this.setState({[type]: data.Search});
+          if (data.Response === 'True') {
+            this.setState({[type]: data.Search});
+          } else {
+            this.setState({error: data.Error});
+          }
+          
       })
+      .catch(err => console.log(err))
   }
 
   search = (param) => {
@@ -40,7 +47,14 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <Main movies={this.state.movies} series={this.state.series} searchResult={this.state.searchResult} isLoading={this.state.isLoading} search={this.search}/>
+        <Main 
+          movies={this.state.movies} 
+          series={this.state.series} 
+          searchResult={this.state.searchResult} 
+          isLoading={this.state.isLoading} 
+          search={this.search}
+          error={this.state.error}
+        />
         <Footer />
       </>
     )

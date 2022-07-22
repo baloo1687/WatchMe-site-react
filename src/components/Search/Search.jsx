@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import styles from './Search.module.scss';
 
 export default class Search extends React.Component {
@@ -10,6 +11,10 @@ export default class Search extends React.Component {
         if (e.keyCode === 13) {
             this.props.search(this.state.search);
         }
+    }
+
+    handleClick = () => {
+        this.props.search(this.state.search);
     }
     
     render() {
@@ -23,6 +28,7 @@ export default class Search extends React.Component {
                     onChange={(e) => this.setState({search: e.target.value})}
                     onKeyDown={(e) => this.handleKeyDown(e)}
                 />
+                <Button className='default' handleClick={this.handleClick}>Search</Button>
             </div>
         )
     }

@@ -1,3 +1,19 @@
 .search {
-    
+    &__input {
+        background-color: #23232d;
+        border-radius: 5px;
+        width: 50%;
+        padding: 15px;
+        color: #fff;
+        border: 1px solid #23232d;
+        outline: none;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        transition: .3s;
+        margin-right: 40px;
+        &:focus {
+            border: 1px solid #ff186c;
+        }
+    }
 }
