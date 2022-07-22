@@ -7,32 +7,40 @@ import React from 'react';
 class App extends React.Component {
   state = {
     movies: [],
-    series: []
+    series: [],
+    searchResult: [],
+    isLoading: false
   }
 
-  moviesUrl = 'https://www.omdbapi.com/?i=tt3896198&apikey=26934f09&s=Avengers&plot=full&type=movie';
-  seriesUrl = 'https://www.omdbapi.com/?i=tt3896198&apikey=26934f09&s=Friends&plot=full&type=series';
-
-  fetchApi(url, type) {
+  fetchApi = (url, type) => {
       fetch(url)
       .then(response => response.json())
       .then(data => {
+          this.setState({isLoading: false})
           this.setState({[type]: data.Search});
       })
   }
 
-  componentDidMount() {
-    for (let key in this.state) {
-      this.fetchApi(this[key + 'Url'], key);
+  search = (param) => {
+    this.setState({isLoading: true})
+    if (param) {
+      this.fetchApi(`https://www.omdbapi.com/?i=tt3896198&apikey=26934f09&s=${param}`, 'searchResult');
+    } else {
+      this.setState({isLoading: false})
+      this.setState({searchResult: []})
     }
-      
+  }
+
+  componentDidMount = () => {
+    this.fetchApi('https://www.omdbapi.com/?i=tt3896198&apikey=26934f09&s=Avengers&plot=full&type=movie', 'movies');
+    this.fetchApi('https://www.omdbapi.com/?i=tt3896198&apikey=26934f09&s=Avengers&plot=full&type=series', 'series');
   }
 
   render () {
     return (
       <>
         <Header />
-        <Main movies={this.state.movies} series={this.state.series} />
+        <Main movies={this.state.movies} series={this.state.series} searchResult={this.state.searchResult} isLoading={this.state.isLoading} search={this.search}/>
         <Footer />
       </>
     )

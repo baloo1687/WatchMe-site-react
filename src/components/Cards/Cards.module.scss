@@ -3,12 +3,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 30px;
     .card {
         width: calc(100% / 5 - 30px);
         position: relative;
         cursor: pointer;
         transition: .3s;
+        margin-bottom: 50px;
         &:hover {
             transform: scale(1.1);
             &:after {
