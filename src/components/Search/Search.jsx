@@ -12,10 +12,6 @@ export default class Search extends React.Component {
             this.props.search(this.state.search);
         }
     }
-
-    handleClick = () => {
-        this.props.search(this.state.search);
-    }
     
     render() {
         return (
@@ -28,7 +24,7 @@ export default class Search extends React.Component {
                     onChange={(e) => this.setState({search: e.target.value})}
                     onKeyDown={(e) => this.handleKeyDown(e)}
                 />
-                <Button className='default' handleClick={this.handleClick}>Search</Button>
+                <Button className='default' handleClick={() => this.props.search(this.state.search)}>Search</Button>
             </div>
         )
     }
